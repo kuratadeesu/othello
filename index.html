@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>オセロ</title>
+
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+
+  <div id="gameContainer">
+    <div id="turn">黒の番です</div>
+    <div id="board"></div>
+    <div id="score">黒 2石 | 白 2石</div>
+  </div>
+
+  <!-- 勝敗ポップアップ -->
+  <div id="resultPopup" class="popup">
+    <div class="popup-content">
+      <h2 id="resultText">結果</h2>
+      <button class="btn" id="restartBtn">再スタート</button>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -37,7 +37,7 @@ body {
   50% { background: #C7F464; }
 }
 
-/* 石（2層構造） */
+/* ------ 石：裏返しアニメ対応 ------ */
 .stone {
   width: 80%;
   height: 80%;
@@ -48,7 +48,8 @@ body {
   transition: transform 0.6s ease-in-out;
 }
 
-.stone .front, .stone .back {
+.stone .front,
+.stone .back {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -56,13 +57,22 @@ body {
   backface-visibility: hidden;
 }
 
-.stone .front.black { background-color: black; }
-.stone .front.white { background-color: white; }
+/* 石の色 */
+.stone .front.black { background: black; }
+.stone .front.white { background: white; }
 
-.stone .back.black { background-color: black; transform: rotateX(180deg); }
-.stone .back.white { background-color: white; transform: rotateX(180deg); }
+/* 裏側（反転） */
+.stone .back.black {
+  background: black;
+  transform: rotateX(180deg);
+}
 
-/* flipアニメ */
+.stone .back.white {
+  background: white;
+  transform: rotateX(180deg);
+}
+
+/* アニメ反転 */
 .stone.flip {
   transform: rotateX(180deg);
 }
@@ -73,7 +83,7 @@ body {
   margin-top: 10px;
 }
 
-/* ポップアップ */
+/* ------ ポップアップ ------ */
 .popup {
   position: fixed;
   inset: 0;
@@ -81,9 +91,12 @@ body {
   display: none;
   justify-content: center;
   align-items: center;
+  z-index: 9999; /* ← 最重要 */
 }
 
-.popup.active { display: flex; }
+.popup.active {
+  display: flex;
+}
 
 .popup-content {
   background: #fff;
@@ -100,10 +113,12 @@ body {
   padding: 12px;
   border-radius: 15px;
   border: none;
-  background: #4CAF50; /* 緑系ボタン */
+  background: #4CAF50;
   color: white;
   font-size: 18px;
   cursor: pointer;
 }
 
-.btn:hover { background: #45A049; }
+.btn:hover {
+  background: #45A049;
+}

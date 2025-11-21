@@ -25,11 +25,9 @@ $(function () {
 
   initBoard();
 
-
   // 裏返せる石を取得
   function getFlips(x, y, color) {
     if (board[y][x] !== 0) return [];
-
     let flips = [];
 
     for (const [dx, dy] of DIRS) {
@@ -51,7 +49,6 @@ $(function () {
     return flips;
   }
 
-
   // 置ける場所
   function getAllValidMoves(color) {
     let moves = [];
@@ -60,7 +57,6 @@ $(function () {
         if (getFlips(x, y, color).length > 0) moves.push([x, y]);
     return moves;
   }
-
 
   // 石数
   function countStones() {
@@ -73,7 +69,6 @@ $(function () {
     return { black, white };
   }
 
-
   // 勝敗判定
   function checkGameEnd() {
     const blackMoves = getAllValidMoves(1);
@@ -81,8 +76,8 @@ $(function () {
 
     if (blackMoves.length === 0 && whiteMoves.length === 0) {
       const { black, white } = countStones();
-      let msg = `黒: ${black} 石\n白: ${white} 石\n\n`;
 
+      let msg = `黒: ${black} 石\n白: ${white} 石\n\n`;
       if (black > white) msg += "黒の勝ち！";
       else if (white > black) msg += "白の勝ち！";
       else msg += "引き分け！";
@@ -93,7 +88,6 @@ $(function () {
     }
     return false;
   }
-
 
   // 描画
   function render() {
@@ -130,7 +124,6 @@ $(function () {
     $("#turn").text(current === 1 ? "黒の番です" : "白の番です");
   }
 
-
   // クリック処理
   $("#board").on("click", ".cell", function () {
     const x = +$(this).data("x");
@@ -155,7 +148,13 @@ $(function () {
     // 手番交代
     current = current === 1 ? 2 : 1;
 
-    // パス
+    // ★ 勝敗判定（両者打てない）
+    if (getAllValidMoves(1).length === 0 && getAllValidMoves(2).length === 0) {
+      checkGameEnd();
+      return;
+    }
+
+    // ★ 片方だけ置けない → パス
     if (getAllValidMoves(current).length === 0) {
       const name = current === 1 ? "黒" : "白";
       $passText.text(`${name}は置ける場所がないためパス！`);
@@ -163,9 +162,8 @@ $(function () {
       return;
     }
 
-    if (!checkGameEnd()) render();
+    render();
   });
-
 
   // 再スタート
   $("#restartBtn").click(() => {
@@ -180,7 +178,6 @@ $(function () {
     current = current === 1 ? 2 : 1;
     render();
   });
-
 
   render();
 });

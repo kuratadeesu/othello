@@ -78,11 +78,11 @@ $(function () {
       const { black, white } = countStones();
 
       let msg = `黒: ${black} 石\n白: ${white} 石\n\n`;
-      if (black > white) msg += "黒の勝ち！";
-      else if (white > black) msg += "白の勝ち！";
-      else msg += "引き分け！";
+      if (black > white) msg += "<br>黒の勝ち！";
+      else if (white > black) msg += "<br>白の勝ち！";
+      else msg += "<br>引き分け！";
 
-      $resultText.text(msg);
+      $resultText.html(msg);
       $resultPopup.addClass("active");
       return true;
     }
